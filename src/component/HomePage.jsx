@@ -29,7 +29,7 @@ function HomePage() {
                 left: 0,             // ✅ เริ่มจากขอบซ้ายสุด
                 width: '100vw', 
                 height: '100vh', 
-                overflow: 'hidden',  // ตัด scroll
+                overflow: 'auto',  // ตัด scroll
                 margin: 0, 
                 padding: 0,
                 }}>
