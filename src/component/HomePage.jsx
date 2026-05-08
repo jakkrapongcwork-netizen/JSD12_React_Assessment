@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 function HomePage() {
     const navigate = useNavigate()
@@ -10,14 +10,34 @@ function HomePage() {
 
     const handleSave = () => {
         if (form.name || form.lastName || form.position) {
-        setUsers([...users, form])
-        setForm({ name: '', lastName: '', position: '' })
+            fetch('https://67eca027aa794fb3222e43e2.mockapi.io/members', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(form)
+            })
+            .then(res => res.json())
+            .then(newUser => {
+                setUsers([...users, newUser])  // เพิ่ม user ที่ได้จาก API เข้า state
+                setForm({ name: '', lastName: '', position: '' })
+            })
         }
     }
 
     const handleDelete = (index) => {
-        setUsers(users.filter((_, i) => i !== index))
+        const userId = users[index].id  // ดึง id จาก user
+        fetch(`https://67eca027aa794fb3222e43e2.mockapi.io/members/${userId}`, {
+            method: 'DELETE'
+        })
+        .then(() => {
+            setUsers(users.filter((_, i) => i !== index))
+        })
     }
+
+    useEffect(() => {
+        fetch('https://67eca027aa794fb3222e43e2.mockapi.io/members')
+            .then(res => res.json())
+            .then(data => setUsers(data))
+    }, [])
 
     return(
         <>
