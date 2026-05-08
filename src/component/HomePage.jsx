@@ -88,7 +88,14 @@ function HomePage() {
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
+                                        {users.map((user, i) => (  // ✅ เปลี่ยนจาก hardcode เป็น map
+                                            <tr key={i}>
+                                                <td className="border border-gray-300 p-3">{user.name}</td>
+                                                <td className="border border-gray-300 p-3">{user.lastName}</td>
+                                                <td className="border border-gray-300 p-3">{user.position}</td>
+                                            </tr>
+                                        ))}
+                                        {/* <tr>
                                             <td className="border border-gray-300 p-3"></td>
                                             <td className="border border-gray-300 p-3"></td>
                                             <td className="border border-gray-300 p-3"></td>
@@ -102,7 +109,7 @@ function HomePage() {
                                             <td className="border border-gray-300 p-3"></td>
                                             <td className="border border-gray-300 p-3"></td>
                                             <td className="border border-gray-300 p-3"></td>
-                                        </tr>
+                                        </tr> */}
                                     </tbody>
                                 </table>
                             </div>
@@ -114,7 +121,7 @@ function HomePage() {
                         <>
                             <div className='flex justify-center'>
                                 <div className="mt-5 mx-10">
-                                    <h2 className="font-bold text-lg">Create Admin User Here</h2>
+                                    <h2 className="font-bold text-lg">Create User Here</h2>
                                     <div className="flex gap-3 mb-5 justify-between">
                                         <input className="border p-3 rounded bg-white w-1/4" placeholder="Name"
                                             value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} />
